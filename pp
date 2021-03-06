@@ -106,40 +106,13 @@ elif [ "$1" == "--help" ]
 		echo 'Penggunaan : pp [OPTION] [SUB_OPTION] [ACTION:Optional]
 OPTION LIST :
 
-git	
+setup	
   SUB_OPTION: 
-	push			Push Git ke Origin Master
-	pull			Pull Git dari Origin Master
-lampp
+	ubuntu			Setup Configuration for Ubuntu
+	centos			Setup Configuration for CentOS
+bind
   SUB_OPTION: 
-	start			Start XAMPP Server
-	stop			Stop XAMPP Server
-starter
-  SUB_OPTION: 
-	backend			
-	  ACTION:
-		--lumen			Membuat Starter Lumen + JWT + Artisan Command
-		--laravel		Membuat Starter Laravel
-		--node			Membuat Starter NodeJS for Rest API
-		--express		Membuat Starter Nodejs + Express for Rest API
-		--prisma		Membuat Starter Nodejs + Prisma for Rest API
-		--koa			Membuat Starter Nodejs + Koa for Rest API
-	  
-	frontend		
-	  ACTION:
-		--react		Membuat Starter ReactJS Versi Terbaru
-		--vite		Membuat Starter Vue + Vite Versi Terbaru
-
-	mobile			
-	  ACTION:
-		--react-native		Membuat Starter React Native Versi Terbaru
-
-	html			
-	  ACTION:
-		--tailwind		Membuat Starter HTML + TailwindCSS
-		--bootstrap		Membuat Starter HTML + Bootstrap 5
-
-	git				
-	  ACTION:
-		--action		Membuat Starter Github Action untuk CD ke VPS Linux' 
+	laravel			Bind Domain to Laravel App
+	node			Bind Domain to Node App
+	static			Bind Domain to Static App
 fi
