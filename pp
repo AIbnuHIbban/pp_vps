@@ -82,8 +82,6 @@ elif [ "$1" == "bind" ]
 }' >> /etc/nginx/sites-available/'$projectName'.conf
 		elif ["$3" == "static"]
 			then
-				elif ["$3" == "node"]
-			then
 				echo 'server {
    root /var/www/'"$projectName"';
    index index.html index.htm;
