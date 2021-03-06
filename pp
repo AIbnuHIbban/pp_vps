@@ -42,11 +42,13 @@ if [ "$1" == "setup" ]
 		fi
 elif [ "$1" == "bind" ]
 	then
+		cd /var/www/;
 		echo "::: Make Sure Project Folder in /var/www/yourdomain.com/ :::"
-		echo -n "Project Name : "
-		read projectName;
-		sudo chown -R root:root /var/www/"$projectName"
-		sudo touch /etc/nginx/sites-available/"$projectName".conf
+		echo -n "Project Name : "; 
+		read projectName; 
+		mkdir "$projectName";
+		sudo chown -R root:root /var/www/"$projectName";
+		sudo touch /etc/nginx/sites-available/"$projectName".conf;
 		if ["$3" == "laravel"]
 			then
 				echo 'server {
