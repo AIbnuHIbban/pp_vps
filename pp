@@ -112,5 +112,5 @@ bind
   SUB_OPTION: 
 	laravel			Bind Domain to Laravel App
 	node			Bind Domain to Node App
-	static			Bind Domain to Static App
+	static			Bind Domain to Static App'
 fi
