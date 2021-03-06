@@ -45,8 +45,8 @@ elif [ "$1" == "bind" ]
 		echo "::: Make Sure Project Folder in /var/www/yourdomain.com/ :::"
 		echo -n "Project Name : "
 		read projectName;
-		sudo chown -R root:root /var/www/'$projectName'
-		sudo touch /etc/nginx/sites-available/'$projectName'.conf
+		sudo chown -R root:root /var/www/"$projectName"
+		sudo touch /etc/nginx/sites-available/"$projectName".conf
 		if ["$3" == "laravel"]
 			then
 				echo 'server {
@@ -64,7 +64,7 @@ elif [ "$1" == "bind" ]
             fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
             include fastcgi_params;
     }
-}' >> /etc/nginx/sites-available/'$projectName'.conf
+}' >> /etc/nginx/sites-available/"$projectName".conf
 		elif ["$3" == "node"]
 			then
 				echo -n "PORT : "
@@ -79,7 +79,7 @@ elif [ "$1" == "bind" ]
         proxy_set_header Host $host;
         proxy_cache_bypass $http_upgrade;
     }
-}' >> /etc/nginx/sites-available/'$projectName'.conf
+}' >> /etc/nginx/sites-available/"$projectName".conf
 		elif ["$3" == "static"]
 			then
 				echo 'server {
@@ -90,9 +90,9 @@ elif [ "$1" == "bind" ]
    location / {
        try_files $uri $uri/ =404;
    }
-}' >> /etc/nginx/sites-available/'$projectName'.conf
+}' >> /etc/nginx/sites-available/"$projectName".conf
 		fi
-		sudo ln -s -f /etc/nginx/sites-available/'$projectName'.conf /etc/nginx/sites-enabled/'$projectName'.conf
+		sudo ln -s -f /etc/nginx/sites-available/"$projectName".conf /etc/nginx/sites-enabled/"$projectName".conf
 		sudo systemctl restart nginx.service
 		sudo apt update
 		sudo apt install certbot
