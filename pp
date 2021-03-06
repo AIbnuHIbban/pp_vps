@@ -49,7 +49,7 @@ elif [ "$1" == "bind" ]
 		mkdir "$projectName";
 		sudo chown -R root:root /var/www/"$projectName";
 		sudo touch /etc/nginx/sites-available/"$projectName".conf;
-		if [ "$3" == "laravel" ]
+		if [ "$2" == "laravel" ]
 			then
 				echo 'server {
     listen 80 default_server;
@@ -67,7 +67,7 @@ elif [ "$1" == "bind" ]
             include fastcgi_params;
     }
 }' >> /etc/nginx/sites-available/"$projectName".conf
-		elif [ "$3" == "node" ]
+		elif [ "$2" == "node" ]
 			then
 				echo -n "PORT : "
 				read port;
@@ -82,7 +82,7 @@ elif [ "$1" == "bind" ]
         proxy_cache_bypass $http_upgrade;
     }
 }' >> /etc/nginx/sites-available/"$projectName".conf
-		elif [ "$3" == "static" ]
+		elif [ "$2" == "static" ]
 			then
 				echo 'server {
    root /var/www/'"$projectName"';
