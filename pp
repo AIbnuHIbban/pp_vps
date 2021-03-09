@@ -52,7 +52,7 @@ elif [ "$1" == "bind" ]
 		if [ "$2" == "laravel" ]
 			then
 				echo 'server {
-    listen 80 default_server;
+    server_name '"$projectName"';
     root /var/www/'"$projectName"'/public/;
     index index.php;
     location / {
@@ -60,11 +60,10 @@ elif [ "$1" == "bind" ]
     }
 
     location ~ \.php$ {
-            try_files $uri /index.php =404;
-            fastcgi_pass unix:/var/run/php8.0-fpm.sock;
-            fastcgi_index index.php;
-            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-            include fastcgi_params;
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php8.0-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
     }
 }' >> /etc/nginx/sites-available/"$projectName".conf
 		elif [ "$2" == "node" ]
