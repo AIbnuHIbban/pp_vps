@@ -6,12 +6,17 @@ if [ "$1" == "setup" ]
 			sudo apt update
 			sudo apt install nginx
 			sudo ufw allow 'Nginx HTTP'
+			sudo ufw allow ssh
+			sudo ufw allow 80
+			sudo ufw allow 443
 			echo -n "Password ROOT MYSQL : "
 			read password;
 			sudo apt install mysql-server
 			sudo mysql_secure_installation
 			sudo mysql
-			ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '$password'; FLUSH PRIVILEGES; SELECT user,authentication_string,plugin,host FROM mysql.user;
+			ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '$password'; 
+			FLUSH PRIVILEGES; 
+			exit
 			sudo apt install software-properties-common
 			sudo add-apt-repository ppa:ondrej/php
 			sudo apt install php8.0-fpm
@@ -31,7 +36,9 @@ if [ "$1" == "setup" ]
 			sudo apt install mysql-server
 			sudo mysql_secure_installation
 			sudo mysql
-			ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '$password'; FLUSH PRIVILEGES; SELECT user,authentication_string,plugin,host FROM mysql.user;
+			ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '$password'; 
+			FLUSH PRIVILEGES; 
+			exit
 			sudo apt install software-properties-common
 			sudo add-apt-repository ppa:ondrej/php
 			sudo apt install php8.0-fpm
@@ -47,21 +54,21 @@ elif [ "$1" == "bind" ]
 		echo -n "Project Name : "; 
 		read projectName; 
 		mkdir "$projectName";
-		sudo chown -R root:root /var/www/"$projectName";
 		sudo touch /etc/nginx/sites-available/"$projectName".conf;
 		if [ "$2" == "laravel" ]
 			then
-				echo 'server {
+				sudo echo 'server {
     server_name '"$projectName"';
     root /var/www/'"$projectName"'/public/;
     index index.php;
+    
     location / {
          try_files $uri $uri/ /index.php$is_args$args;
     }
 
     location ~ \.php$ {
         include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/var/run/php8.0-fpm.sock;
+        fastcgi_pass unix:/var/run/php/php8.0-fpm.sock;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         include fastcgi_params;
     }
@@ -93,13 +100,8 @@ elif [ "$1" == "bind" ]
    }
 }' >> /etc/nginx/sites-available/"$projectName".conf
 		fi
-		sudo ln -s -f /etc/nginx/sites-available/"$projectName".conf /etc/nginx/sites-enabled/"$projectName".conf
-		sudo systemctl restart nginx.service
-		sudo apt update
-		sudo apt install certbot
-		sudo apt install python-certbot-nginx
-		sudo certbot --nginx -d "$projectName"
-
+		ln -s -f /etc/nginx/sites-available/"$projectName".conf /etc/nginx/sites-enabled/"$projectName".conf
+		systemctl restart nginx.service
 elif [ "$1" == "--help" ]
 	then
 		echo 'Penggunaan : pp [OPTION] [SUB_OPTION] [ACTION:Optional]
