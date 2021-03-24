@@ -5,6 +5,7 @@ if [ "$1" == "setup" ]
 			then
 			sudo apt update
 			sudo apt install nginx
+			sudo service nginx start
 			sudo ufw allow 'Nginx HTTP'
 			sudo ufw allow ssh
 			sudo ufw allow 80
