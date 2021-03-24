@@ -14,9 +14,6 @@ if [ "$1" == "setup" ]
 			sudo apt install mysql-server
 			sudo mysql_secure_installation
 			sudo mysql
-			ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '$password'; 
-			FLUSH PRIVILEGES; 
-			exit
 			sudo apt install software-properties-common
 			sudo add-apt-repository ppa:ondrej/php
 			sudo apt install php8.0-fpm
