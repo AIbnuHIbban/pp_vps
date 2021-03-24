@@ -20,30 +20,52 @@ if [ "$1" == "setup" ]
 			sudo apt install php8.0-fpm
 			sudo apt install openssl php-common php-curl php-json php-mbstring php-mysql php-xml php-zip
 			sudo systemctl restart nginx
+			cd ~
+			curl -sS https://getcomposer.org/installer -o composer-setup.php
+			sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 			
-			echo "::: SETUP HAS BENN COMPLETED :::"
+			echo "::: SETUP HAS BEEN COMPLETED :::"
+			echo "List Already Installed:"
+			echo "1. Nginx"
+			echo "2. MySQL"
+			echo "3. PHP 8.0"
+			echo "4. PHP Extension for Laravel"
+			echo "5. Composer"
+			echo "Thans for Using, -LeeNuksID"		
 		elif [ "$2" == "centos" ]
 			then
 			echo "Cooming"
 		else 
+			then
 			sudo apt update
 			sudo apt install nginx
+			sudo service nginx start
 			sudo ufw allow 'Nginx HTTP'
+			sudo ufw allow ssh
+			sudo ufw allow 80
+			sudo ufw allow 443
 			echo -n "Password ROOT MYSQL : "
 			read password;
 			sudo apt install mysql-server
 			sudo mysql_secure_installation
 			sudo mysql
-			ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '$password'; 
-			FLUSH PRIVILEGES; 
-			exit
 			sudo apt install software-properties-common
 			sudo add-apt-repository ppa:ondrej/php
 			sudo apt install php8.0-fpm
 			sudo apt install openssl php-common php-curl php-json php-mbstring php-mysql php-xml php-zip
 			sudo systemctl restart nginx
-
-			echo "::: SETUP HAS BENN COMPLETED :::"
+			cd ~
+			curl -sS https://getcomposer.org/installer -o composer-setup.php
+			sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+			
+			echo "::: SETUP HAS BEEN COMPLETED :::"
+			echo "List Already Installed:"
+			echo "1. Nginx"
+			echo "2. MySQL"
+			echo "3. PHP 8.0"
+			echo "4. PHP Extension for Laravel"
+			echo "5. Composer"
+			echo "Thans for Using, -LeeNuksID"
 		fi
 elif [ "$1" == "bind" ]
 	then
