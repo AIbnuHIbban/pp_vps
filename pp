@@ -70,7 +70,7 @@ elif [ "$1" == "bind" ]
 		echo "::: Make Sure Project Folder in /var/www/yourdomain.com/ :::"
 		echo -n "Project Name : "; 
 		read projectName; 
-		mkdir "$projectName";
+		sudo mkdir "$projectName";
 		sudo touch /etc/nginx/sites-available/"$projectName".conf;
 		if [ "$2" == "laravel" ]
 			then
@@ -117,8 +117,8 @@ elif [ "$1" == "bind" ]
    }
 }' >> /etc/nginx/sites-available/"$projectName".conf
 		fi
-		ln -s -f /etc/nginx/sites-available/"$projectName".conf /etc/nginx/sites-enabled/"$projectName".conf
-		systemctl restart nginx.service
+		sudo ln -s -f /etc/nginx/sites-available/"$projectName".conf /etc/nginx/sites-enabled/"$projectName".conf
+		sudo systemctl restart nginx.service
 elif [ "$1" == "--help" ]
 	then
 		echo 'Penggunaan : pp [OPTION] [SUB_OPTION] [ACTION:Optional]
