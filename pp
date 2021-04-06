@@ -89,7 +89,7 @@ elif [ "$1" == "bind" ]
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         include fastcgi_params;
     }
-}' >> /etc/nginx/sites-available/"$projectName".conf
+}' | sudo tee -a /etc/nginx/sites-available/"$projectName".conf  > /dev/null
 		elif [ "$2" == "node" ]
 			then
 				echo -n "PORT : "
@@ -104,7 +104,7 @@ elif [ "$1" == "bind" ]
         proxy_set_header Host $host;
         proxy_cache_bypass $http_upgrade;
     }
-}' >> /etc/nginx/sites-available/"$projectName".conf
+}' | sudo tee -a /etc/nginx/sites-available/"$projectName".conf  > /dev/null
 		elif [ "$2" == "static" ]
 			then
 				echo 'server {
@@ -115,7 +115,7 @@ elif [ "$1" == "bind" ]
    location / {
        try_files $uri $uri/ =404;
    }
-}' >> /etc/nginx/sites-available/"$projectName".conf
+}' | sudo tee -a /etc/nginx/sites-available/"$projectName".conf  > /dev/null
 		fi
 		sudo ln -s -f /etc/nginx/sites-available/"$projectName".conf /etc/nginx/sites-enabled/"$projectName".conf
 		sudo systemctl restart nginx.service
