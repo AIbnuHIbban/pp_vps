@@ -74,7 +74,7 @@ elif [ "$1" == "bind" ]
 		sudo touch /etc/nginx/sites-available/"$projectName".conf;
 		if [ "$2" == "laravel" ]
 			then
-				sudo echo 'server {
+				echo 'server {
     server_name '"$projectName"';
     root /var/www/'"$projectName"'/public/;
     index index.php;
