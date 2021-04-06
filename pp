@@ -94,7 +94,7 @@ elif [ "$1" == "bind" ]
 		cd /var/www/"$projectName";
 		echo -n "URL Repository: "
 		read repo;
-		git clone "$repo" .;
+		sudo git clone "$repo" .;
 		sudo chown -R www-data.www-data storage
 		sudo chown -R www-data.www-data bootstrap/cache
 		cp .env.example .env
