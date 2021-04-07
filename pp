@@ -98,6 +98,7 @@ elif [ "$1" == "bind" ]
 		sudo chown -R www-data.www-data storage
 		sudo chown -R www-data.www-data bootstrap/cache
 		cp .env.example .env
+		sudo composer install
 		php artisan key:generate
 		elif [ "$2" == "node" ]
 			then
