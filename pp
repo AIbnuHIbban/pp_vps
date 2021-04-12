@@ -1,5 +1,7 @@
 #!/bin/bash
-# For Server
+if [ "$1" == "test" ] 
+	then
+		echo "Bash PP Ready to Use"
 if [ "$1" == "setup" ] 
 	then
 		if [ "$2" == "ubuntu" ]
