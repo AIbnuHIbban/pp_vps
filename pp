@@ -131,6 +131,10 @@ elif [ "$1" == "bind" ]
 		fi
 		sudo ln -s -f /etc/nginx/sites-available/"$projectName".conf /etc/nginx/sites-enabled/"$projectName".conf
 		sudo systemctl restart nginx.service
+elif [ "$1" == "mysql" ]
+	then
+		echo -n "Megacerbon290901!" | pbcopy
+		mysql -u root -p
 elif [ "$1" == "--help" ]
 	then
 		echo 'Penggunaan : pp [OPTION] [SUB_OPTION] [ACTION:Optional]
