@@ -2,6 +2,9 @@
 if [ "$1" == "test" ] 
 	then
 		echo "Bash PP Ready to Use";
+elif [ "$1" == "ip" ] 
+	then
+		curl ifconfig.me
 elif [ "$1" == "setup" ] 
 	then
 		if [ "$2" == "ubuntu" ]
