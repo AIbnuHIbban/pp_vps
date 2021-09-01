@@ -7,6 +7,7 @@ elif [ "$1" == "setup" ]
 		if [ "$2" == "ubuntu" ]
 			then
 				sudo apt update
+				sudo timedatectl set-timezone Asia/Jakarta
 				sudo apt install nginx
 				sudo service nginx start
 				sudo ufw allow 'Nginx HTTP'
@@ -21,15 +22,50 @@ elif [ "$1" == "setup" ]
 				sudo apt install software-properties-common
 				sudo add-apt-repository ppa:ondrej/php
 				sudo apt install php8.0-fpm
-				sudo apt install openssl php-common php-curl php-json php-mbstring php-mysql php-xml php-zip
+				sudo apt install openssl php-common php-curl php-json php-mbstring php-mysql php-xml php-zip php-gd
 				sudo systemctl restart nginx
 				cd ~
 				curl -sS https://getcomposer.org/installer -o composer-setup.php
 				sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+				sudo rm -rf composer-setup.php
 				echo "::: SETUP HAS BEEN COMPLETED :::";
 				echo "List Already Installed:";
 				echo "1. Nginx";
 				echo "2. MySQL";
+				echo "3. PHP 8.0";
+				echo "4. PHP Extension for Laravel";
+				echo "5. Composer";
+				echo "Thans for Using, -LeeNuksID";
+		elif [ "$2" == "debian" ]
+			then
+				sudo timedatectl set-timezone Asia/Jakarta
+				sudo apt install wget
+				sudo apt install nginx
+				sudo service nginx start
+				sudo ufw allow 'Nginx HTTP'
+				sudo ufw allow ssh
+				sudo ufw allow 80
+				sudo ufw allow 443
+				echo -n "Password ROOT MYSQL : "
+				read password;
+				sudo apt install mariadb-server
+				sudo mysql_secure_installation
+				sudo mariadb
+				sudo apt install -y lsb-release ca-certificates apt-transport-https software-properties-common
+				echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/sury-php.list
+				sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg 
+				sudo apt update
+				sudo apt install php8.0-fpm
+				sudo apt install openssl php-common php-curl php-json php-mbstring php-mysql php-xml php-zip php-gd
+				sudo systemctl restart nginx
+				cd ~
+				curl -sS https://getcomposer.org/installer -o composer-setup.php
+				sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+				sudo rm -rf composer-setup.php
+				echo "::: SETUP HAS BEEN COMPLETED :::";
+				echo "List Already Installed:";
+				echo "1. Nginx";
+				echo "2. MariaDB";
 				echo "3. PHP 8.0";
 				echo "4. PHP Extension for Laravel";
 				echo "5. Composer";
