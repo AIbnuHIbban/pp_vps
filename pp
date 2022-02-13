@@ -25,7 +25,7 @@ elif [ "$1" == "setup" ]
 				sudo apt install software-properties-common
 				sudo add-apt-repository ppa:ondrej/php
 				sudo apt install php8.0-fpm
-				sudo apt install openssl php-common php-curl php-json php-mbstring php-mysql php-xml php-zip php-gd
+				sudo apt install openssl php8.0-common php8.0-curl php8.0-json php8.0-mbstring php8.0-mysql php8.0-xml php8.0-zip php8.0-gd
 				sudo systemctl restart nginx
 				cd ~
 				curl -sS https://getcomposer.org/installer -o composer-setup.php
