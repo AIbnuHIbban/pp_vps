@@ -121,7 +121,6 @@ elif [ "$1" == "install" ]
 				echo "Invalid option $2"
 				;;
 		esac
-	fi
 elif [ "$1" == "setup" ] 
 	then
 		if [ "$2" == "ubuntu" ]
