@@ -1,11 +1,48 @@
 #!/bin/bash
 
+# Function to install Golang with selected version
+install_golang() {
+    while true; do
+        GO_VERSION=$1
+        wget https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz
+        if [ $? -eq 0 ]; then
+            sudo tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz
+            echo "export PATH=$PATH:/usr/local/go/bin" >> ~/.profile
+            source ~/.profile
+            rm go${GO_VERSION}.linux-amd64.tar.gz
+            if go version | grep -q "go${GO_VERSION}"; then
+                break
+            else
+                echo "Failed to install Golang. Please try again."
+            fi
+        else
+            echo "Failed to download Golang. Please try again."
+        fi
+        echo -n "Select Golang version to install (e.g., 1.15.6): "
+        read GO_VERSION
+    done
+}
+
 # Function to install PHP with selected version
 install_php() {
-    PHP_VERSION=$1
-    sudo apt install -y php${PHP_VERSION}-fpm
-    sudo apt install -y openssl php${PHP_VERSION}-common php${PHP_VERSION}-curl php${PHP_VERSION}-json php${PHP_VERSION}-mbstring php${PHP_VERSION}-mysql php${PHP_VERSION}-xml php${PHP_VERSION}-zip php${PHP_VERSION}-gd
+    while true; do
+        PHP_VERSION=$1
+        sudo apt install -y php${PHP_VERSION}-fpm
+        if [ $? -eq 0 ]; then
+            sudo apt install -y openssl php${PHP_VERSION}-common php${PHP_VERSION}-curl php${PHP_VERSION}-json php${PHP_VERSION}-mbstring php${PHP_VERSION}-mysql php${PHP_VERSION}-xml php${PHP_VERSION}-zip php${PHP_VERSION}-gd
+            if [ $? -eq 0 ]; then
+                break
+            else
+                echo "Failed to install PHP extensions. Please try again."
+            fi
+        else
+            echo "Failed to install PHP. Please try again."
+        fi
+        echo -n "Select PHP version to install (7.x - 8.x): "
+        read PHP_VERSION
+    done
 }
+
 
 # Function to install selected database
 install_database() {
@@ -44,6 +81,14 @@ elif [ "$1" == "setup" ]
 				sudo ufw allow ssh
 				sudo ufw allow 80
 				sudo ufw allow 443
+
+				echo -n "Do you want to install Golang? (yes/no): "
+				read install_golang_answer
+				if [ "$install_golang_answer" == "yes" ]; then
+				    echo -n "Select Golang version to install (e.g., 1.17.13, 1.16, 1.15.6): "
+				    read go_version
+				    install_golang $go_version
+				fi
 		
 				echo -n "Select database to install (mysql, mariadb, postgresql): "
 				read db;
