@@ -34,40 +34,40 @@ elif [ "$1" == "ip" ]
 		curl ifconfig.me
 if [ "$1" == "setup" ] 
 	then
-    		if [ "$2" == "ubuntu" ]
-    			then
-			        sudo apt update
-			        sudo timedatectl set-timezone Asia/Jakarta
-			        sudo apt install -y nginx
-			        sudo service nginx start
-			        sudo ufw allow 'Nginx HTTP'
-			        sudo ufw allow ssh
-			        sudo ufw allow 80
-			        sudo ufw allow 443
-			
-			        echo -n "Select database to install (mysql, mariadb, postgresql): "
-			        read db;
-			        install_database $db
-			
-			        echo -n "Select PHP version to install (7.x - 8.x): "
-			        read php_version;
-			        install_php $php_version
-			
-			        sudo systemctl restart nginx
-			
-			        cd ~
-			        curl -sS https://getcomposer.org/installer -o composer-setup.php
-			        sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
-			        sudo rm -rf composer-setup.php
-			
-			        echo "::: SETUP HAS BEEN COMPLETED :::";
-			        echo "List Already Installed:";
-			        echo "1. Nginx";
-			        echo "2. $db";
-			        echo "3. PHP $php_version";
-			        echo "4. PHP Extension for Laravel";
-			        echo "5. Composer";
-			        echo "Thanks for Using, -LeeNuksID";
+		if [ "$2" == "ubuntu" ]
+			then
+				sudo apt update
+				sudo timedatectl set-timezone Asia/Jakarta
+				sudo apt install -y nginx
+				sudo service nginx start
+				sudo ufw allow 'Nginx HTTP'
+				sudo ufw allow ssh
+				sudo ufw allow 80
+				sudo ufw allow 443
+		
+				echo -n "Select database to install (mysql, mariadb, postgresql): "
+				read db;
+				install_database $db
+		
+				echo -n "Select PHP version to install (7.x - 8.x): "
+				read php_version;
+				install_php $php_version
+		
+				sudo systemctl restart nginx
+		
+				cd ~
+				curl -sS https://getcomposer.org/installer -o composer-setup.php
+				sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+				sudo rm -rf composer-setup.php
+		
+				echo "::: SETUP HAS BEEN COMPLETED :::";
+				echo "List Already Installed:";
+				echo "1. Nginx";
+				echo "2. $db";
+				echo "3. PHP $php_version";
+				echo "4. PHP Extension for Laravel";
+				echo "5. Composer";
+				echo "Thanks for Using, -LeeNuksID";
 		elif [ "$2" == "debian" ]
 			then
 				sudo timedatectl set-timezone Asia/Jakarta
