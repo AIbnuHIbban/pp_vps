@@ -101,20 +101,19 @@ elif [ "$1" == "install" ]
 				install_database postgresql
 				;;
 			help)
-				then
-					echo "Usage: $0 COMMAND"
-					echo
-					echo "Commands:"
-					echo "  install golang [version]    Install Golang with the specified version"
-					echo "  install php [version]       Install PHP with the specified version"
-					echo "  install nginx               Install Nginx"
-					echo "  install composer            Install Composer"
-					echo "  install node                Install Node.js"
-					echo "  install mysql               Install MySQL"
-					echo "  install mariadb             Install MariaDB"
-					echo "  install postgresql          Install PostgreSQL"
-					echo "  --help, -h                  Show this help message"
-					exit 0
+				echo "Usage: $0 COMMAND"
+				echo
+				echo "Commands:"
+				echo "  install golang [version]    Install Golang with the specified version"
+				echo "  install php [version]       Install PHP with the specified version"
+				echo "  install nginx               Install Nginx"
+				echo "  install composer            Install Composer"
+				echo "  install node                Install Node.js"
+				echo "  install mysql               Install MySQL"
+				echo "  install mariadb             Install MariaDB"
+				echo "  install postgresql          Install PostgreSQL"
+				echo "  --help, -h                  Show this help message"
+				exit 0
 				;;
 			*)
 				echo "Invalid option $2"
