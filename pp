@@ -1,44 +1,73 @@
 #!/bin/bash
+
+# Function to install PHP with selected version
+install_php() {
+    PHP_VERSION=$1
+    sudo apt install -y php${PHP_VERSION}-fpm
+    sudo apt install -y openssl php${PHP_VERSION}-common php${PHP_VERSION}-curl php${PHP_VERSION}-json php${PHP_VERSION}-mbstring php${PHP_VERSION}-mysql php${PHP_VERSION}-xml php${PHP_VERSION}-zip php${PHP_VERSION}-gd
+}
+
+# Function to install selected database
+install_database() {
+    DB=$1
+    if [ "$DB" == "mysql" ]; then
+        echo -n "Password ROOT MYSQL : "
+        read password;
+        sudo debconf-set-selections <<< "mysql-server mysql-server/root_password password $password"
+        sudo debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $password"
+        sudo apt install -y mysql-server
+        sudo mysql_secure_installation
+    elif [ "$DB" == "mariadb" ]; then
+        sudo apt install -y mariadb-server
+    elif [ "$DB" == "postgresql" ]; then
+        sudo apt install -y postgresql
+    fi
+}
+
+
+
 if [ "$1" == "test" ] 
 	then
 		echo "Bash PP Ready to Use";
 elif [ "$1" == "ip" ] 
 	then
 		curl ifconfig.me
-elif [ "$1" == "setup" ] 
+if [ "$1" == "setup" ] 
 	then
-		if [ "$2" == "ubuntu" ]
-			then
-				sudo apt update
-				sudo timedatectl set-timezone Asia/Jakarta
-				sudo apt install nginx
-				sudo service nginx start
-				sudo ufw allow 'Nginx HTTP'
-				sudo ufw allow ssh
-				sudo ufw allow 80
-				sudo ufw allow 443
-				echo -n "Password ROOT MYSQL : "
-				read password;
-				sudo apt install mysql-server
-				sudo mysql_secure_installation
-				sudo mysql
-				sudo apt install software-properties-common
-				sudo add-apt-repository ppa:ondrej/php
-				sudo apt install php8.0-fpm
-				sudo apt install openssl php8.0-common php8.0-curl php8.0-json php8.0-mbstring php8.0-mysql php8.0-xml php8.0-zip php8.0-gd
-				sudo systemctl restart nginx
-				cd ~
-				curl -sS https://getcomposer.org/installer -o composer-setup.php
-				sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
-				sudo rm -rf composer-setup.php
-				echo "::: SETUP HAS BEEN COMPLETED :::";
-				echo "List Already Installed:";
-				echo "1. Nginx";
-				echo "2. MySQL";
-				echo "3. PHP 8.0";
-				echo "4. PHP Extension for Laravel";
-				echo "5. Composer";
-				echo "Thans for Using, -LeeNuksID";
+    		if [ "$2" == "ubuntu" ]
+    			then
+			        sudo apt update
+			        sudo timedatectl set-timezone Asia/Jakarta
+			        sudo apt install -y nginx
+			        sudo service nginx start
+			        sudo ufw allow 'Nginx HTTP'
+			        sudo ufw allow ssh
+			        sudo ufw allow 80
+			        sudo ufw allow 443
+			
+			        echo -n "Select database to install (mysql, mariadb, postgresql): "
+			        read db;
+			        install_database $db
+			
+			        echo -n "Select PHP version to install (7.x - 8.x): "
+			        read php_version;
+			        install_php $php_version
+			
+			        sudo systemctl restart nginx
+			
+			        cd ~
+			        curl -sS https://getcomposer.org/installer -o composer-setup.php
+			        sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+			        sudo rm -rf composer-setup.php
+			
+			        echo "::: SETUP HAS BEEN COMPLETED :::";
+			        echo "List Already Installed:";
+			        echo "1. Nginx";
+			        echo "2. $db";
+			        echo "3. PHP $php_version";
+			        echo "4. PHP Extension for Laravel";
+			        echo "5. Composer";
+			        echo "Thanks for Using, -LeeNuksID";
 		elif [ "$2" == "debian" ]
 			then
 				sudo timedatectl set-timezone Asia/Jakarta
