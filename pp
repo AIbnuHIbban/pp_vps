@@ -27,6 +27,8 @@ install_golang() {
 install_php() {
     while true; do
         PHP_VERSION=$1
+		sudo apt install software-properties-common
+		sudo add-apt-repository ppa:ondrej/php
         sudo apt install -y php${PHP_VERSION}-fpm
         if [ $? -eq 0 ]; then
             sudo apt install -y openssl php${PHP_VERSION}-common php${PHP_VERSION}-curl php${PHP_VERSION}-json php${PHP_VERSION}-mbstring php${PHP_VERSION}-mysql php${PHP_VERSION}-xml php${PHP_VERSION}-zip php${PHP_VERSION}-gd
