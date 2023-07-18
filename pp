@@ -32,7 +32,7 @@ if [ "$1" == "test" ]
 elif [ "$1" == "ip" ] 
 	then
 		curl ifconfig.me
-if [ "$1" == "setup" ] 
+elif [ "$1" == "setup" ] 
 	then
 		if [ "$2" == "ubuntu" ]
 			then
