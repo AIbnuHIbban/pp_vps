@@ -62,13 +62,65 @@ install_database() {
 }
 
 
-
 if [ "$1" == "test" ] 
 	then
 		echo "Bash PP Ready to Use";
 elif [ "$1" == "ip" ] 
 	then
 		curl ifconfig.me
+elif [ "$1" == "install" ]
+	then
+		case $2 in
+			golang)
+				install_golang $3
+				;;
+			php)
+				install_php $3
+				;;
+			nginx)
+				sudo apt update
+				sudo apt install -y nginx
+				;;
+			composer)
+				cd ~
+				curl -sS https://getcomposer.org/installer -o composer-setup.php
+				sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+				sudo rm -rf composer-setup.php
+				;;
+			node)
+				curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+				sudo apt-get install -y nodejs
+				;;
+			mysql)
+				install_database mysql
+				;;
+			mariadb)
+				install_database mariadb
+				;;
+			postgresql)
+				install_database postgresql
+				;;
+			help)
+				then
+					echo "Usage: $0 COMMAND"
+					echo
+					echo "Commands:"
+					echo "  install golang [version]    Install Golang with the specified version"
+					echo "  install php [version]       Install PHP with the specified version"
+					echo "  install nginx               Install Nginx"
+					echo "  install composer            Install Composer"
+					echo "  install node                Install Node.js"
+					echo "  install mysql               Install MySQL"
+					echo "  install mariadb             Install MariaDB"
+					echo "  install postgresql          Install PostgreSQL"
+					echo "  --help, -h                  Show this help message"
+					exit 0
+				;;
+			*)
+				echo "Invalid option $2"
+				;;
+		esac
+	fi
 elif [ "$1" == "setup" ] 
 	then
 		if [ "$2" == "ubuntu" ]
