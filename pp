@@ -7,8 +7,8 @@ install_golang() {
         wget https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz
         if [ $? -eq 0 ]; then
             sudo tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz
-            echo "export PATH=$PATH:/usr/local/go/bin" >> ~/.profile
-            source ~/.profile
+            echo "export PATH=$PATH:/usr/local/go/bin" >> ~/.bashrc
+            source ~/.bashrc
             rm go${GO_VERSION}.linux-amd64.tar.gz
             if go version | grep -q "go${GO_VERSION}"; then
                 break
