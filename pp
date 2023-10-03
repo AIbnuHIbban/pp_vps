@@ -283,12 +283,12 @@ elif [ "$1" == "bind" ]
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         include fastcgi_params;
     }
-}' | sudo tee -a /etc/nginx/sites-available/"$projectName".conf  > /dev/null
+}' | sudo tee -a /etc/nginx/sites-available/"$projectName".conf  > /dev/null;
 		cd /var/www/"$projectName";
-		echo -n "URL Repository: "
+		echo -n "URL Repository: ";ls
 		read repo;
-		git clone "$repo" .;
-  		git config credential.helper store;
+		sudo git clone "$repo" .;
+  		sudo git config credential.helper store;
   		sudo chmod 755 -R /var/www/"$projectName";
 		sudo chown -R www-data.www-data storage;
 		sudo chown -R www-data.www-data bootstrap/cache;
