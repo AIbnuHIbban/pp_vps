@@ -70,6 +70,11 @@ if [ "$1" == "test" ]
 elif [ "$1" == "ip" ] 
 	then
 		curl ifconfig.me
+elif [ "$1" == "ssl" ]
+	then
+ 		echo -n "Masukkan nama domain: "
+		read nama_domain
+		sudo certbot --nginx -d "$nama_domain"
 elif [ "$1" == "install" ]
 	then
 		case $2 in
