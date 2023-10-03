@@ -262,12 +262,13 @@ elif [ "$1" == "bind" ]
 		echo -n "URL Repository: "
 		read repo;
 		sudo git clone "$repo" .;
-  		sudo chmod 755 -R /var/www/"$projectName"
-		sudo chown -R www-data.www-data storage
-		sudo chown -R www-data.www-data bootstrap/cache
-		cp .env.example .env
-		sudo composer install
-		php artisan key:generate
+  		git config credential.helper store;
+  		sudo chmod 755 -R /var/www/"$projectName";
+		sudo chown -R www-data.www-data storage;
+		sudo chown -R www-data.www-data bootstrap/cache;
+		cp .env.example .env;
+		sudo composer install;
+		php artisan key:generate;
 		elif [ "$2" == "node" ]
 			then
 				echo -n "PORT : "
