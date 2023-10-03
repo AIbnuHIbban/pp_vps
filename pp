@@ -261,12 +261,12 @@ elif [ "$1" == "bind" ]
 		cd /var/www/"$projectName";
 		echo -n "URL Repository: "
 		read repo;
-		sudo git clone "$repo" .;
+		git clone "$repo" .;
   		git config credential.helper store;
   		sudo chmod 755 -R /var/www/"$projectName";
 		sudo chown -R www-data.www-data storage;
 		sudo chown -R www-data.www-data bootstrap/cache;
-		cp .env.example .env;
+		sudo cp .env.example .env;
 		sudo composer install;
 		php artisan key:generate;
 		elif [ "$2" == "node" ]
