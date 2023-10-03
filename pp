@@ -234,12 +234,38 @@ elif [ "$1" == "setup" ]
 		fi
 elif [ "$1" == "bind" ]
 	then
-		cd /var/www/;
+		cd /var/www/
 		echo "::: Make Sure Project Folder in /var/www/yourdomain.com/ :::"
-		echo -n "Project Name : "; 
-		read projectName; 
-		sudo mkdir "$projectName";
-		sudo touch /etc/nginx/sites-available/"$projectName".conf;
+		echo -n "Project Name : "
+		read projectName
+		
+		# Cek folder
+		if [ -d "$projectName" ]; then
+		    echo "Folder $projectName sudah ada. Replace (y/n)?"
+		    read replace_folder
+		    if [ "$replace_folder" == "y" ]; then
+		        sudo rm -rf "$projectName"
+		    else
+		        echo "Ganti nama folder: "
+		        read projectName
+		    fi
+		fi
+		sudo mkdir "$projectName"
+		
+		# Cek file konfigurasi Nginx
+		nginx_config="/etc/nginx/sites-available/$projectName.conf"
+		if [ -f "$nginx_config" ]; then
+		    echo "File konfigurasi $nginx_config sudah ada. Replace (y/n)?"
+		    read replace_file
+		    if [ "$replace_file" == "y" ]; then
+		        sudo rm -f "$nginx_config"
+		    else
+		        echo "Ganti nama file: "
+		        read projectName
+		        nginx_config="/etc/nginx/sites-available/$projectName.conf"
+		    fi
+		fi
+		sudo touch "$nginx_config"
 		if [ "$2" == "laravel" ]
 			then
 				echo 'server {
