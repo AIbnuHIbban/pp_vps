@@ -329,7 +329,7 @@ elif [ "$1" == "bind" ]
 		fi
 		sudo ln -s -f /etc/nginx/sites-available/"$projectName".conf /etc/nginx/sites-enabled/"$projectName".conf
 		sudo systemctl restart nginx.service
-elif [ "$1" == "bind" ] && [ "$2" == "nginx" ]; then
+elif [ "$1" == "nginx" ]; then
     echo -n "Domain yang ingin dibind: "
     read domain_name
 
