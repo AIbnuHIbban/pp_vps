@@ -237,6 +237,54 @@ elif [ "$1" == "setup" ]
 			echo "5. Composer";
 			echo "Thans for Using, -LeeNuksID";
 		fi
+elif [ "$1" == "bind" ] && [ "$2" == "nginx" ]; then
+    echo -n "Domain yang ingin dibind: "
+    read domain_name
+
+    # Buat folder di /var/www sesuai dengan domain
+    project_path="/var/www/$domain_name"
+    if [ -d "$project_path" ]; then
+        echo "Folder untuk $domain_name sudah ada."
+    else
+        sudo mkdir -p "$project_path"
+        echo "Folder $domain_name telah dibuat di $project_path."
+    fi
+
+    # Buat file konfigurasi Nginx
+    nginx_config="/etc/nginx/sites-available/$domain_name.conf"
+    if [ -f "$nginx_config" ]; then
+        echo "Konfigurasi untuk $domain_name sudah ada."
+    else
+        echo "Membuat konfigurasi Nginx untuk $domain_name..."
+        sudo bash -c "cat > $nginx_config <<EOL
+server {
+    server_name $domain_name;
+    root $project_path;
+
+    index index.html index.htm;
+
+    location / {
+        try_files \$uri \$uri/ =404;
+    }
+
+    error_page 404 /404.html;
+    location = /404.html {
+        root $project_path;
+    }
+}
+EOL"
+        echo "Konfigurasi Nginx untuk $domain_name telah dibuat."
+    fi
+
+    # Buat symlink ke sites-enabled
+    sudo ln -sf $nginx_config /etc/nginx/sites-enabled/
+
+    # Restart Nginx
+    echo "Restarting Nginx..."
+    sudo systemctl restart nginx
+
+    echo "Domain $domain_name telah dibind ke Nginx dan aktif."
+fi
 elif [ "$1" == "bind" ]
 	then
 		cd /var/www/
